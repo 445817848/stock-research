@@ -1,7 +1,7 @@
 {
   "total_in_batch": 158,
-  "completed": 122,
-  "remaining": 36,
+  "completed": 123,
+  "remaining": 35,
   "completed_stocks": [
     {
       "code": "920178",
@@ -490,13 +490,13 @@
     {
       "code": "301246",
       "name": "宏源药业"
-    }
-  ],
-  "remaining_stocks": [
+    },
     {
       "code": "301387",
       "name": "光大同创"
-    },
+    }
+  ],
+  "remaining_stocks": [
     {
       "code": "300518",
       "name": "新迅达"
