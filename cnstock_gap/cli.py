@@ -16,10 +16,10 @@ def _bars_per_day(scale: int) -> int:
 
 # Conservative day limits per scale to avoid API blocking
 _MAX_DAYS = {
-    5: 5,    # 5min: 240 bars/day → max 1,200 bars
-    30: 10,  # 30min: 8 bars/day → max 80 bars
-    60: 15,  # 60min: 4 bars/day → max 60 bars
-    240: 20, # daily: API hard-caps at ~26 bars anyway
+    5: 5,    # 5min: dense data, keep conservative
+    30: 20,  # 30min: ~160 bars
+    60: 30,  # 60min: ~120 bars
+    240: 90, # daily: ~90 bars, single request
 }
 
 
@@ -108,8 +108,8 @@ def main():
     kline_p.add_argument(
         "--days",
         type=int,
-        default=5,
-        help="Number of trading days (scale-dependent max, see --help)",
+        default=45,
+        help="Number of trading days (default: 45). Max: 5min→5, 30min→20, 60min→30, daily→90",
     )
 
     # snapshot subcommand
