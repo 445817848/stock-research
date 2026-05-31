@@ -1,0 +1,8 @@
+{
+  "pool_name": "stockrank",
+  "pool_type": "ranking",
+  "created_at": "2026-05-19T08:49:56",
+  "source": "eastmoney",
+  "count": 0,
+  "stocks": []
+}

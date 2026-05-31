@@ -1,0 +1,13 @@
+[build-system]
+requires = ["hatchling"]
+build-backend = "hatchling.build"
+
+[project]
+name = "cnstock-gap"
+version = "0.1.0"
+description = "A-share data collection utilities using lesser-known public endpoints to fill gaps left by mainstream APIs."
+requires-python = ">=3.10"
+dependencies = []
+
+[project.scripts]
+csg = "cnstock_gap.cli:main"

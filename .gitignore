@@ -1,0 +1,29 @@
+# Data directories
+stock_intel/
+batch_logs/
+_raw/
+
+# Python cache
+__pycache__/
+*.pyc
+*.pyo
+
+# Virtual environments
+.venv/
+venv/
+
+# Snapshots / temp outputs
+snapshots/
+*.tar.gz
+*.zip
+
+# Temp files
+next_10_temp.json
+*.tmp
+*.bak
+*.bad
+
+# IDE
+.vscode/
+.idea/
+stocktools/
