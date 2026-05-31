@@ -14,9 +14,27 @@ def _bars_per_day(scale: int) -> int:
     return 240 // scale
 
 
+# Conservative day limits per scale to avoid API blocking
+_MAX_DAYS = {
+    5: 5,    # 5min: 240 bars/day → max 1,200 bars
+    30: 10,  # 30min: 8 bars/day → max 80 bars
+    60: 15,  # 60min: 4 bars/day → max 60 bars
+    240: 20, # daily: API hard-caps at ~26 bars anyway
+}
+
+
 def cmd_kline(args):
     """Handle `csg kline`."""
     ratelimit.reset_budget()
+
+    max_days = _MAX_DAYS.get(args.scale, 5)
+    if args.days > max_days:
+        print(
+            f"[error] scale={args.scale} max days={max_days}. "
+            f"Requested {args.days} days exceeds safe limit. Aborting.",
+            file=sys.stderr,
+        )
+        sys.exit(1)
 
     datalen = args.days * _bars_per_day(args.scale) + 5  # +5 for MA5 buffer
     data = sina.fetch_kline(args.code, scale=args.scale, datalen=datalen)
@@ -84,10 +102,14 @@ def main():
         type=int,
         default=240,
         choices=[5, 30, 60, 240],
-        help="Bar interval in minutes (default: 240 = daily)",
+        help="Bar interval in minutes (default: 240 = daily). "
+             "Max days: 5min→5, 30min→10, 60min→15, daily→20",
     )
     kline_p.add_argument(
-        "--days", type=int, default=5, help="Number of trading days"
+        "--days",
+        type=int,
+        default=5,
+        help="Number of trading days (scale-dependent max, see --help)",
     )
 
     # snapshot subcommand
